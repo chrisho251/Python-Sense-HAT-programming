@@ -14,8 +14,12 @@ b = (0, 0, 0)            # Black
 w = (255, 255, 255)      # White
 g = (0, 128, 0)          # Green
 db = (30, 144, 255)      # Dodger blue
+lb = (135, 206, 250)     # Light sky blue
 lc = (224, 255, 255)     # Light cyan
 s = (160, 82, 45)        # Sienna
+bi = (255, 228, 196)     # Bisque
+o = (255, 165, 0)        # Orange
+dg = (105, 105, 105)     # Dim grey
 
 # Create some pixel arts
 frog = [
@@ -40,8 +44,19 @@ pikachu = [
     g, g, y, s, m, m, s, g,
 ]
 
+man = [
+    g, g, s, s, s, s, g, g,
+    g, s, bi, bi , bi , bi, g, g,
+    g, s, bi, lb, bi, lb, g, g,
+    g, bi, bi, bi, bi, bi, g, g,
+    g, o, bi, bi, bi, o, g, g,
+    bi, g, o, o, o, g, bi, g,
+    g, g, b, b, b, g, g, g,
+    g, g, dg, g, dg, g, g, g,
+]
+
 # Create list for pixel arts
-list_pic = [frog, pikachu]
+list_pic = [frog, pikachu, man]
 
 # Insert picture into the sense HAT
 for i in list_pic:
