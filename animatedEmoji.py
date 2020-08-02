@@ -1,5 +1,6 @@
 # Import the required libraries
 from sense_hat import SenseHat
+from itertools import cycle
 import time
 
 # Create a sense object
@@ -59,8 +60,10 @@ man = [
 list_pic = [frog, pikachu, man]
 
 # Insert picture into the sense HAT
-for i in list_pic:
+for i in cycle(list_pic):
+    sense.low_light = True
     sense.set_pixels(i)
     time.sleep(3)
+    
 
 
