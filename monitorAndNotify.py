@@ -1,4 +1,3 @@
-import MySQLdb
 from environment import temperature
 
 #Create a connection between raspberry and database
