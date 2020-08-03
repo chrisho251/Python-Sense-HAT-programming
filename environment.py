@@ -10,32 +10,30 @@ class environment:
         res = os.popen("vcgencmd measure_temp").readline()
         return float(res.replace("temp=","").replace("'C\n",""))
 
-    # Use moving average to smooth readings.
-    def get_smooth(x):
-        if not hasattr(get_smooth, "t"):
-            get_smooth.t = [x,x,x]
     
-        get_smooth.t[2] = get_smooth.t[1]
-        get_smooth.t[1] = get_smooth.t[0]
-        get_smooth.t[0] = x
-
-        return (get_smooth.t[0] + get_smooth.t[1] + get_smooth.t[2]) / 3
-
-    # Initialize the sensehat object
-    sense = SenseHat()
-
-    while True:
+    @staticmethod
+    def get_temp_hum():
+        # Initialize the sensehat object
+        sense = SenseHat()
         # Get the temperature
         t1 = sense.get_temperature_from_humidity()
         t2 = sense.get_temperature_from_pressure()
         # Get the CPU temperature
-        t_cpu = get_cpu_temp()
+        t_cpu = environment.get_cpu_temp()
         # Get humidity
-        h = sen.get_humidity()
-        p = sense.get_pressure()
+        h = sense.get_humidity()
+        #p = sense.get_pressure()
         # Calculates the real temperature compesating CPU heating.
         t = (t1 + t2) / 2
         t_corr = t - ((t_cpu - t) / 1.5)
-        t_corr = get_smooth(t_corr)
+        if environment.check_valid_data(t,h)==False:
+            return environment.get_temp_hum
+        return round(t_corr), round(h)
     
-    
+    # This function is to check the temperature and humidity at the beginning where it equals to 0
+    @staticmethod
+    def check_valid_data(temp, hum):
+        if temp==0 or hum==0:
+            return False
+        return True
+
